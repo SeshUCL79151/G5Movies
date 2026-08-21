@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MoviesG5.Core/MoviesG5.Core.csproj" Id="7b7706e5-0c4d-4421-a559-ff7a1de61a47" />
+  <Project Path="MoviesG5.UI/MoviesG5.UI.csproj" />
+</Solution>
