@@ -13,9 +13,11 @@ namespace MoviesG5.UI
 {
     public partial class MovieWindow : Window
     {
+
         public MovieWindow()
         {
             InitializeComponent();
+            Loaded += (s, e) => movieTitleTextBox.Focus();
         }
     }
 }
