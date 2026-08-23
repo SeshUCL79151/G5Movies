@@ -10,58 +10,84 @@ namespace MoviesG5.UI
         private readonly IRepository<Movie> _movieRepo;
         public ObservableCollection<Movie> Movies { get; }
         public RelayCommand AddMovieCommand { get; }
+        public RelayCommand ClearFormCommand { get; }
+
         private string _movieTitle = string.Empty;
         public string MovieTitle
         {
             get { return _movieTitle; }
-            set { _movieTitle = value; }
+            set { _movieTitle = value; OnPropertyChanged(); }
         }
-        private Movie _movie;
-        private string _movieDurationString;
-        public string MovieDurationString
+        private string _durationInput;
+        public string DurationInput
         {
-            get { return _movieDurationString; }
-            set { _movieDurationString = value; }
+            get { return _durationInput; }
+            set { _durationInput = value; OnPropertyChanged(); }
+        }
+        public IEnumerable<Genre> Genres { get; } = Enum.GetValues<Genre>();
+
+        private Genre? _selectedGenre; // Nullable, da vi gerne vil have vist en tom combobox, indtil brugeren vælger en genre
+        public Genre? SelectedGenre
+        {
+            get => _selectedGenre;
+            set { _selectedGenre = value; OnPropertyChanged(); }
         }
 
         public MovieViewModel(IRepository<Movie> repo)
         {
             _movieRepo = repo;
-            Movies = new ObservableCollection<Movie>(_movieRepo.GetAll());
-            AddMovieCommand = new RelayCommand(execute => AddMovie(), canexecute => { return true; });
+            Movies = new ObservableCollection<Movie>(Enumerable.Reverse(_movieRepo.GetAll())); // Vi vil gerne have vist den sidst tilføjede film først i listen og vender derfor repo om
+            AddMovieCommand = new RelayCommand(execute => AddMovie(), canexecute => { return true; }); // Kommando til Gem-knap
+            ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Kommando til Ryd-knap
         }
+        
         private void AddMovie() 
         {
-            string titleErrorMsg = "";
-            string durationErrorMsg = "";
-            Boolean isInputOk = true;
+            string titleErrorMessage = "";
+            string durationErrorMessage = "";
+            string genreErrorMessage = "";
+            bool isFormValid = true;
             if (_movieTitle == "") 
             {
-                titleErrorMsg = "Du skal indtaste en titel på filmen";
-                isInputOk = false;
+                titleErrorMessage = "Du skal indtaste en titel på filmen";
+                isFormValid = false;
             }
-            bool isDurationStringOk = TimeSpan.TryParseExact(_movieDurationString,@"h\:mm", CultureInfo.InvariantCulture, out TimeSpan duration);
-            if (!isDurationStringOk)
+            bool isDurationValid = TimeSpan.TryParseExact(_durationInput, @"h\:mm", CultureInfo.InvariantCulture, out TimeSpan duration);
+            if (!isDurationValid)
             {
-                durationErrorMsg = "Varighed skal indtastes i formatet t:mm";
-                isInputOk = false;
+                durationErrorMessage = "Varighed skal indtastes i formatet t:mm";
+                isFormValid = false;
             }
-            if (!isInputOk)
+            if (_selectedGenre == null)
             {
-                MessageBox.Show(titleErrorMsg + "\n" + durationErrorMsg, "Fejl i indtastning", MessageBoxButton.OK, MessageBoxImage.Error);
+                genreErrorMessage = "Du skal vælge en genre";
+                isFormValid = false;
+            }
+            if (!isFormValid)
+            {
+                MessageBox.Show(titleErrorMessage + "\n" + durationErrorMessage + "\n" + genreErrorMessage, "Fejl i indtastning", MessageBoxButton.OK, MessageBoxImage.Error);
                
             } else
             {
-                _movie = new Movie();
-                _movie.Title = _movieTitle;
-                _movie.Duration = duration;
-
-                Movies.Add(_movie);
-                _movieTitle = "";
-                _movieDurationString = "";
+                var newMovie = new Movie();
+                newMovie.Title = _movieTitle;
+                newMovie.Duration = duration;
+                newMovie.Genre = _selectedGenre.Value; // Value tvinger compileren til at tildele en nullable type til en ikke nullable type
+                Movies.Insert(0, newMovie); // Indsæt filmen først i listen
+                _movieRepo.Add(newMovie);
+                _movieRepo.Save();
+                MessageBox.Show("Filmen er gemt", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                ClearForm();
             }
         }
+        private void ClearForm() 
+        {
+            MovieTitle = "";
+            DurationInput = "";
+            SelectedGenre = null;
+        }
 
-        
+
+
     }
 }

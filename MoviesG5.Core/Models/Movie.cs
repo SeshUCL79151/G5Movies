@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MoviesG5.Core;
 
 namespace MoviesG5.Core
 {
@@ -9,6 +7,6 @@ namespace MoviesG5.Core
         public int Id { get; set; }
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
-        public enum Genre;
+        public Genre Genre { get; set; }
     }
 }
