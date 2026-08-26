@@ -13,7 +13,7 @@ namespace MoviesG5.UI
         {
             base.OnStartup(e);
             var movieRepo = new RepositoryJson<Movie>("movies.json");
-            var viewModel = new MovieViewModel(movieRepo);
+            var viewModel = new MovieViewModel(movieRepo, new MessageBoxDialogService());
             var view = new MovieWindow();
             view.DataContext = viewModel;
             this.MainWindow = view;

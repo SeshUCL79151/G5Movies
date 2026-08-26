@@ -2,12 +2,12 @@
 using MoviesG5.Core;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Windows;
 namespace MoviesG5.UI
 {
     public class MovieViewModel : ViewModelBase
     {
         private readonly IRepository<Movie> _movieRepo;
+        private readonly IDialogService _dialogService;
         public ObservableCollection<Movie> Movies { get; }
         public RelayCommand AddMovieCommand { get; }
         public RelayCommand ClearFormCommand { get; }
@@ -33,9 +33,10 @@ namespace MoviesG5.UI
             set { _selectedGenre = value; OnPropertyChanged(); }
         }
 
-        public MovieViewModel(IRepository<Movie> repo)
+        public MovieViewModel(IRepository<Movie> repo, IDialogService dialogService)
         {
             _movieRepo = repo;
+            _dialogService = dialogService;
             Movies = new ObservableCollection<Movie>(Enumerable.Reverse(_movieRepo.GetAll())); // Vi vil gerne have vist den sidst tilføjede film først i listen og vender derfor repo om
             AddMovieCommand = new RelayCommand(execute => AddMovie(), canexecute => { return true; }); // Kommando til Gem-knap
             ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Kommando til Ryd-knap
@@ -47,15 +48,15 @@ namespace MoviesG5.UI
             string durationErrorMessage = "";
             string genreErrorMessage = "";
             bool isFormValid = true;
-            if (_movieTitle == "") 
+            if (string.IsNullOrWhiteSpace(_movieTitle)) 
             {
-                titleErrorMessage = "Du skal indtaste en titel på filmen";
+                titleErrorMessage = "Du skal indtaste en titel på filmen\n";
                 isFormValid = false;
             }
-            bool isDurationValid = TimeSpan.TryParseExact(_durationInput, @"h\:mm", CultureInfo.InvariantCulture, out TimeSpan duration);
+            bool isDurationValid = TimeSpan.TryParseExact(_durationInput, @"h\:mm", CultureInfo.InvariantCulture, out TimeSpan duration); // Accepterer tider fra 0:00 - 23:59
             if (!isDurationValid)
             {
-                durationErrorMessage = "Varighed skal indtastes i formatet t:mm";
+                durationErrorMessage = "Varighed skal indtastes i formatet t:mm\n";
                 isFormValid = false;
             }
             if (_selectedGenre == null)
@@ -65,8 +66,7 @@ namespace MoviesG5.UI
             }
             if (!isFormValid)
             {
-                MessageBox.Show(titleErrorMessage + "\n" + durationErrorMessage + "\n" + genreErrorMessage, "Fejl i indtastning", MessageBoxButton.OK, MessageBoxImage.Error);
-               
+                _dialogService.ShowError(titleErrorMessage + durationErrorMessage + genreErrorMessage, "Fejl i indtastning");
             } else
             {
                 var newMovie = new Movie();
@@ -76,7 +76,7 @@ namespace MoviesG5.UI
                 Movies.Insert(0, newMovie); // Indsæt filmen først i listen
                 _movieRepo.Add(newMovie);
                 _movieRepo.Save();
-                MessageBox.Show("Filmen er gemt", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                _dialogService.ShowInfo("Filmen er gemt", "Succes");
                 ClearForm();
             }
         }

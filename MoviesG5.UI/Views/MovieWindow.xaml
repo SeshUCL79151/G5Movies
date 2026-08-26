@@ -25,7 +25,7 @@
         <ListView Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="5" HorizontalAlignment="Center"  FontSize="16" Margin="0,25,0,0" ItemsSource="{Binding Movies}">
             <ListView.View>
                 <GridView>
-                    <GridView.Columns>
+                    <GridView.Columns >
                         <GridViewColumn Header="Filmtitel" Width="200" DisplayMemberBinding="{Binding Title}"/>
                         <GridViewColumn Header="Varighed" Width="75" DisplayMemberBinding="{Binding Duration}"/>
                         <GridViewColumn Header="Genre" Width="200" DisplayMemberBinding="{Binding Genre}"/>
