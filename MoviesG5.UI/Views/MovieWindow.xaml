@@ -14,6 +14,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -22,13 +23,14 @@
         </Grid.ColumnDefinitions>
         
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Registrerede film" FontSize="18"/>
-        <ListView Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="5" HorizontalAlignment="Center"  FontSize="16" Margin="0,25,0,0" ItemsSource="{Binding Movies}">
+        <ListView Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="6" HorizontalAlignment="Center"  FontSize="16" Margin="0,25,0,0" ItemsSource="{Binding Movies}">
             <ListView.View>
                 <GridView>
                     <GridView.Columns >
-                        <GridViewColumn Header="Filmtitel" Width="200" DisplayMemberBinding="{Binding Title}"/>
-                        <GridViewColumn Header="Varighed" Width="75" DisplayMemberBinding="{Binding Duration}"/>
-                        <GridViewColumn Header="Genre" Width="200" DisplayMemberBinding="{Binding Genre}"/>
+                        <GridViewColumn Header="Filmtitel" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Instruktør" Width="150" DisplayMemberBinding="{Binding Director}"/>
+                        <GridViewColumn Header="Varighed" Width="80" DisplayMemberBinding="{Binding Duration}"/>
+                        <GridViewColumn Header="Genre" Width="120" DisplayMemberBinding="{Binding Genre}"/>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
@@ -37,15 +39,18 @@
 
         <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast filmtitel" FontSize="13"/>
         <TextBox Grid.Row="2" Grid.Column="2" Width="250" Height="40" Margin="0,10,0,0" Name ="movieTitleTextBox" TextWrapping="Wrap" Text="{Binding MovieTitle}" FontSize="16" VerticalContentAlignment="Center"/>
-        
-        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast varighed (timer:minutter)" FontSize="13"/>
-        <TextBox Grid.Row="3" Grid.Column="2" Width="250" Height="40" Margin="0,10,0,0" Text="{Binding DurationInput}" FontSize="16" VerticalContentAlignment="Center"/>
 
-        <TextBlock  Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Vælg genre" FontSize="13"/>
-        <ComboBox Grid.Row="4" Grid.Column="2" FontSize="16" VerticalContentAlignment="Center" Width="250" Height="40" Margin="0,10,0,0" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast instruktør" FontSize="13"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Width="250" Height="40" Margin="0,10,0,0" Text="{Binding MovieDirector}" FontSize="16" VerticalContentAlignment="Center"/>
         
-        <Button Grid.Column="2" Grid.Row="5" Content="Gem film" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="25" Margin="0,0,100,0" Width="62" Command="{Binding AddMovieCommand}"/>
-        <Button Grid.Column="2" Grid.Row="5" Content="Ryd felter" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="25" Margin="100,0,0,0" Width="62" Command="{Binding ClearFormCommand}"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast varighed (timer:minutter)" FontSize="13"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Width="250" Height="40" Margin="0,10,0,0" Text="{Binding DurationInput}" FontSize="16" VerticalContentAlignment="Center"/>
+
+        <TextBlock  Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Vælg genre" FontSize="13"/>
+        <ComboBox Grid.Row="5" Grid.Column="2" FontSize="16" VerticalContentAlignment="Center" Width="250" Height="40" Margin="0,10,0,0" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}"/>
+        
+        <Button Grid.Column="2" Grid.Row="6" Content="Gem film" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="25" Margin="0,0,100,0" Width="62" Command="{Binding AddMovieCommand}"/>
+        <Button Grid.Column="2" Grid.Row="6" Content="Ryd felter" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.ColumnSpan="2" Height="25" Margin="100,0,0,0" Width="62" Command="{Binding ClearFormCommand}"/>
 
 
     </Grid>

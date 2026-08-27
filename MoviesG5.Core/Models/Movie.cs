@@ -6,6 +6,7 @@ namespace MoviesG5.Core
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Director { get; set; }
         public TimeSpan Duration { get; set; }
         public Genre Genre { get; set; }
     }
