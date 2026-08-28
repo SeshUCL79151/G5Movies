@@ -18,6 +18,12 @@ namespace MoviesG5.UI
             get { return _movieTitle; }
             set { _movieTitle = value; OnPropertyChanged(); }
         }
+        private string _movieDirector;
+        public string MovieDirector 
+        { 
+            get { return _movieDirector; }
+            set { _movieDirector = value; OnPropertyChanged(); }
+        }
         private string _durationInput;
         public string DurationInput
         {
@@ -45,12 +51,18 @@ namespace MoviesG5.UI
         private void AddMovie() 
         {
             string titleErrorMessage = "";
+            string directorErrorMessage = "";
             string durationErrorMessage = "";
             string genreErrorMessage = "";
             bool isFormValid = true;
             if (string.IsNullOrWhiteSpace(_movieTitle)) 
             {
                 titleErrorMessage = "Du skal indtaste en titel på filmen\n";
+                isFormValid = false;
+            }
+            if (string.IsNullOrWhiteSpace(_movieDirector))
+            {
+                directorErrorMessage = "Du skal indtaste en instruktør for filmen\n";
                 isFormValid = false;
             }
             bool isDurationValid = TimeSpan.TryParseExact(_durationInput, @"h\:mm", CultureInfo.InvariantCulture, out TimeSpan duration); // Accepterer tider fra 0:00 - 23:59
@@ -66,11 +78,12 @@ namespace MoviesG5.UI
             }
             if (!isFormValid)
             {
-                _dialogService.ShowError(titleErrorMessage + durationErrorMessage + genreErrorMessage, "Fejl i indtastning");
+                _dialogService.ShowError(titleErrorMessage + directorErrorMessage + durationErrorMessage + genreErrorMessage, "Fejl i indtastning");
             } else
             {
                 var newMovie = new Movie();
                 newMovie.Title = _movieTitle;
+                newMovie.Director = _movieDirector;
                 newMovie.Duration = duration;
                 newMovie.Genre = _selectedGenre.Value; // Value tvinger compileren til at tildele en nullable type til en ikke nullable type
                 Movies.Insert(0, newMovie); // Indsæt filmen først i listen
@@ -83,6 +96,7 @@ namespace MoviesG5.UI
         private void ClearForm() 
         {
             MovieTitle = "";
+            MovieDirector = "";
             DurationInput = "";
             SelectedGenre = null;
         }
