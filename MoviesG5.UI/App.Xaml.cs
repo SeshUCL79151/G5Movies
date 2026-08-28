@@ -12,12 +12,21 @@ namespace MoviesG5.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
             var movieRepo = new RepositoryJson<Movie>("movies.json");
-            var viewModel = new MovieViewModel(movieRepo, new MessageBoxDialogService());
-            var view = new MovieWindow();
-            view.DataContext = viewModel;
-            this.MainWindow = view;
-            view.Show();
+            var screeningRepo = new RepositoryJson<Screening>("screenings.json");
+            
+            var dialogService = new MessageBoxDialogService();
+
+            var mainViewModel = new MainViewModel(
+                
+                new MovieViewModel(movieRepo, dialogService),
+                new ProgramViewModel(movieRepo, screeningRepo, dialogService));
+                
+
+            var mainWindow = new MainWindow { DataContext = mainViewModel };
+            this.MainWindow = mainWindow;
+            mainWindow.Show();
         }
     }
 }
