@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MoviesG5.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="750" d:DesignWidth="1000">
     <Grid Background="White" >
-        <TextBlock HorizontalAlignment="Left" Margin="300,0,0,0" TextWrapping="Wrap" Text="Velkommen" FontSize="40"  VerticalAlignment="Center" Width="315" Height="56"/>
+        <Image HorizontalAlignment="Left" Height="750" Margin="0,0,0,0" VerticalAlignment="Top" Width="1000" Source="/Views/Images/cat.jpg" Stretch="Fill"/>
 
     </Grid>
 </UserControl>

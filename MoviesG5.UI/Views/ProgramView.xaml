@@ -4,8 +4,143 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Height="750" Width="1000">
-    <Grid>
-        <TextBlock Text="Program planning coming soon" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+        d:DesignHeight="750" d:DesignWidth="1000">
+    <Grid Margin="10" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <!-- "Vælg en film fra oversigten" -->
+            <RowDefinition Height="210"/>
+            <!-- Movie list -->
+            <RowDefinition Height="25"/>
+            <!-- Month navigation (September) -->
+            <RowDefinition Height="*"/>
+            <!-- Schedule/showtimes list -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- Main content -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Sidebar -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Header text -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Vælg en film fra listen"
+               HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"/>
+
+        <!-- Movie list -->
+        <ListView Grid.Column="0" ItemsSource="{Binding Movies}"
+          Width="590" Height="200" Margin="0,0,10,10" FontSize="13" Grid.Row="1">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="4,0"/>
+                    <Setter Property="Height" Value="18"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Titel" Width="200" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Instruktør" Width="200" DisplayMemberBinding="{Binding Director}"/>
+                        <GridViewColumn Header="Varighed" Width="60" DisplayMemberBinding="{Binding Duration, StringFormat='{}{0:%h}:{0:mm}'}"/>
+                        <GridViewColumn Header="Genre" Width="120" DisplayMemberBinding="{Binding Genre}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Month navigation -->
+        <Grid Grid.Row="2" Grid.Column="0" Margin="0,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="⬅" Command="{Binding PreviousMonthCommand}"/>
+            <TextBlock Grid.Column="1" Text="{Binding CurrentMonthName}" FontSize="24"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Grid.Column="2" Content="➡" Command="{Binding NextMonthCommand}"/>
+        </Grid>
+
+        <!-- Schedule / showtimes -->
+        <ListView Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PlannedScreenings}" 
+          Margin="0,10,10,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="4,0"/>
+                    <Setter Property="Height" Value="18"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Cell 1: date -->
+                        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+                            <TextBlock Text="{Binding Day}" HorizontalAlignment="Center" 
+                               VerticalAlignment="Center" FontWeight="Bold"/>
+                        </Border>
+
+                        <!-- Cells 2-4: showtimes (up to 3), each showing start-end + title, or "Ledig" -->
+                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Showings}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Rows="1" Columns="3"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="1">
+                                        <TextBlock Text="{Binding DisplayText}" HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center" Margin="4"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Sidebar: filters + actions -->
+        <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Width="220">
+            <TextBlock  Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg biograf" FontSize="13"/>
+            <ComboBox Grid.Row="5" Grid.Column="2" FontSize="13" VerticalContentAlignment="Center" Width="200" Height="25" Margin="0,10,0,0" ItemsSource="{Binding Cinemas}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCinema}"/>
+            <TextBlock  Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg sal" FontSize="13"/>
+            <ComboBox Grid.Row="5" Grid.Column="2" FontSize="13" VerticalContentAlignment="Center" Width="50" Height="25" Margin="0,10,0,0" ItemsSource="{Binding SelectedCinema.Screens}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedScreen}"/>
+
+            <Grid Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg startdato" FontSize="13"/>
+                <TextBlock  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg slutdato" FontSize="13"/>
+                <DatePicker Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="Indtast starttidspunkt (timer:minutter)" FontSize="13"/>
+                <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="200" Height="25" Margin="0,10,0,0" Text="{Binding StartTime}" FontSize="13" VerticalContentAlignment="Center"/>
+            </Grid>
+
+            
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Gem" Margin="0,0,5,0" Height="30"/>
+                <Button Grid.Column="1" Content="Ryd" Margin="5,0,0,0" Height="30"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -8,5 +8,6 @@ namespace MoviesG5.Core
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<Screen> Screens { get; set; } = new List<Screen>();
     }
 }

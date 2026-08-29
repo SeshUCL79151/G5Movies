@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MoviesG5.Core.Models
+namespace MoviesG5.Core
 {
-    internal class Screen : IHasId
+    public class Screen : IHasId
     {
         public int Id { get; set; }
         public int Name { get; set; }
         public int Capacity { get; set; }
+        public List<Screening> Screenings { get; set; } = new List<Screening>();
     }
 }

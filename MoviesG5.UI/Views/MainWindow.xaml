@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:MoviesG5.UI"
-        Title="The Movies" Height="750" Width="1000">
+        Title="The Movies" Height="700" Width="960">
     <TabControl>
         <TabItem Header="Velkommen" Height="40" Width="125" FontSize="16">
             <views:WelcomeView />

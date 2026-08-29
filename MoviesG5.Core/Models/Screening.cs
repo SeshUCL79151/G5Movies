@@ -9,5 +9,6 @@ namespace MoviesG5.Core
         public int Id { get; set; }
         public TimeOnly StartTime { get; set; }
         public DateOnly Date { get; set; }
+        public Movie Movie { get; set; }
     }
 }

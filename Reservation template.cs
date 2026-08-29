@@ -66,3 +66,17 @@ namespace MoviesG5.UI
 WelcomeViewModel.cs:
 
 public ReservationViewModel ReservationViewModel { get; }
+
+Reservation.cs
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace MoviesG5.Core
+{
+    public class Reservation : IHasId
+    {
+        public int Id { get; set; }
+    }
+}
