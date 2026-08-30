@@ -52,7 +52,7 @@
         <TextBox Grid.Row="2" Grid.Column="2" Width="200" Height="25" Margin="0,10,0,0" Text="{Binding MovieDirector}" FontSize="13" VerticalContentAlignment="Center"/>
         
         <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast varighed (timer:minutter)" FontSize="13"/>
-        <TextBox Grid.Row="3" Grid.Column="2" Width="200" Height="25" Margin="0,10,0,0" Text="{Binding DurationInput}" FontSize="13" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Width="38" Height="25" Margin="0,10,0,0" Text="{Binding DurationInput}" FontSize="13" VerticalContentAlignment="Center"/>
 
         <TextBlock  Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Vælg genre" FontSize="13"/>
         <ComboBox Grid.Row="4" Grid.Column="2" FontSize="13" VerticalContentAlignment="Center" Width="200" Height="25" Margin="0,10,0,0" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}"/>
