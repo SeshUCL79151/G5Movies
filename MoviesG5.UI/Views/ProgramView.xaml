@@ -29,7 +29,8 @@
 
         <!-- Movie list -->
         <ListView Grid.Column="0" ItemsSource="{Binding Movies}"
-          Width="590" Height="200" Margin="0,0,10,10" FontSize="13" Grid.Row="1">
+          Width="590" Height="200" Margin="0,0,10,10" FontSize="13" Grid.Row="1"
+          SelectedItem="{Binding SelectedMovie}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Padding" Value="4,0"/>
@@ -62,48 +63,50 @@
         </Grid>
 
         <!-- Schedule / showtimes -->
-        <ListView Grid.Row="3" Grid.Column="0" ItemsSource="{Binding PlannedScreenings}" 
-          Margin="0,10,10,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Padding" Value="4,0"/>
-                    <Setter Property="Height" Value="18"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="3" Grid.Column="0" Margin="0,10,10,0">
+            <ListView FontSize="13" ItemsSource="{Binding PlannedScreenings}"
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.Style>
+                    <Style TargetType="ListView">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedScreen}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.Style>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="4,0"/>
+                        <Setter Property="Height" Value="21"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns >
+                            <GridViewColumn Header="Dato" Width="40" DisplayMemberBinding="{Binding DateText}"/>
+                            <GridViewColumn Header="1. forestilling" Width="210" DisplayMemberBinding="{Binding ScreeningText[0]}"/>
+                            <GridViewColumn Header="2. forestilling" Width="210" DisplayMemberBinding="{Binding ScreeningText[1]}"/>
+                            <GridViewColumn Header="3. forestilling" Width="210" DisplayMemberBinding="{Binding ScreeningText[2]}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-                        <!-- Cell 1: date -->
-                        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-                            <TextBlock Text="{Binding Day}" HorizontalAlignment="Center" 
-                               VerticalAlignment="Center" FontWeight="Bold"/>
-                        </Border>
-
-                        <!-- Cells 2-4: showtimes (up to 3), each showing start-end + title, or "Ledig" -->
-                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Showings}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Rows="1" Columns="3"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BorderBrush="Black" BorderThickness="1">
-                                        <TextBlock Text="{Binding DisplayText}" HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" Margin="4"/>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            <TextBlock Text="Vælg sal" FontSize="32" FontWeight="Bold"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedScreen}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
 
         <!-- Sidebar: filters + actions -->
         <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Width="220">
@@ -125,8 +128,8 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg startdato" FontSize="13"/>
                 <TextBlock  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg slutdato" FontSize="13"/>
-                <DatePicker Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"/>
-                <DatePicker Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"/>
+                <DatePicker Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" SelectedDate="{Binding StartDate}"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" SelectedDate="{Binding EndDate}"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Indtast starttidspunkt (timer:minutter)" FontSize="13"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="38" Height="25" Text="{Binding StartTimeInput}" FontSize="13" VerticalContentAlignment="Center"/>
             </Grid>
@@ -137,9 +140,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Gem" Margin="0,0,5,0" Height="30"/>
-                <Button Grid.Column="1" Content="Ryd" Margin="5,0,0,0" Height="30"/>
+                <Button Grid.Column="0" Content="Gem" Margin="0,0,5,0" Height="30" Command="{Binding AddScreeningsCommand}"/>
+                <Button Grid.Column="1" Content="Slet" Margin="5,0,5,0" Height="30" Command="{Binding DeleteScreeningsCommand}"/>
+                <Button Grid.Column="2" Content="Ryd" Margin="5,0,0,0" Height="30" Command="{Binding ClearFormCommand}"/>
             </Grid>
         </StackPanel>
     </Grid>

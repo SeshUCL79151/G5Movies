@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 using MoviesG5.Core;
@@ -17,13 +18,15 @@ namespace MoviesG5.UI
             var cinemaRepo = new RepositoryJson<Cinema>("cinemas.json");
             SeedCinemas(cinemaRepo);
 
+            var movies = new ObservableCollection<Movie>(Enumerable.Reverse(movieRepo.GetAll()));
+
             var dialogService = new MessageBoxDialogService();
 
             var mainViewModel = new MainViewModel(
-                
-                new MovieViewModel(movieRepo, dialogService),
-                new ProgramViewModel(movieRepo, cinemaRepo, dialogService));
-                
+
+                new MovieViewModel(movieRepo, movies, dialogService),
+                new ProgramViewModel(movieRepo, cinemaRepo, movies, dialogService));
+
 
             var mainWindow = new MainWindow { DataContext = mainViewModel };
             this.MainWindow = mainWindow;
