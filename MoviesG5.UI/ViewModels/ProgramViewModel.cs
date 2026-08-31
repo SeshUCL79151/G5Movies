@@ -110,11 +110,11 @@ namespace MoviesG5.UI
             for (DateTime date = StartDate.Value; date <= EndDate.Value; date = date.AddDays(1))
             {
                 DateOnly screeningDate = DateOnly.FromDateTime(date);
-                var screeningsOnDate = SelectedScreen.Screenings.Where(s => s.Date == screeningDate).ToList();
+                var screeningsOnDate = SelectedScreen.Screenings.Where(screening => screening.Date == screeningDate).ToList();
 
-                bool overlaps = screeningsOnDate.Any(s =>
-                    s.StartTime < endTime && startTime < s.StartTime.Add(s.Movie.Duration + TimeSpan.FromMinutes(30)));
-                bool full = screeningsOnDate.Count >= 3;
+                bool overlaps = screeningsOnDate.Any(screening =>
+                    screening.StartTime < endTime && startTime < screening.StartTime.Add(screening.Movie.Duration + TimeSpan.FromMinutes(30))); // Overlapper de forevisninger der skal tilføjes eksisterende forevisninger
+                bool full = screeningsOnDate.Count >= 3; // Er der allerede 3 forevisninger på dagen?
 
                 if (overlaps || full)
                     conflictDates.Add(screeningDate);
@@ -166,18 +166,18 @@ namespace MoviesG5.UI
             DateOnly startDate = DateOnly.FromDateTime(StartDate.Value);
             DateOnly endDate = DateOnly.FromDateTime(EndDate.Value);
 
-            var matches = SelectedScreen.Screenings.Where(s =>
-                s.Movie.Id == SelectedMovie.Id &&
-                s.StartTime == startTime &&
-                s.Date >= startDate && s.Date <= endDate).ToList();
+            var screeningMatches = SelectedScreen.Screenings.Where(screening =>
+                screening.Movie.Id == SelectedMovie.Id &&
+                screening.StartTime == startTime &&
+                screening.Date >= startDate && screening.Date <= endDate).ToList();
 
-            if (!matches.Any())
+            if (!screeningMatches.Any())
             {
                 _dialogService.ShowInfo("Ingen visninger matchede søgningen", "Ingen match");
                 return;
             }
 
-            foreach (var screening in matches)
+            foreach (var screening in screeningMatches)
             {
                 SelectedScreen.Screenings.Remove(screening);
             }
@@ -185,7 +185,7 @@ namespace MoviesG5.UI
             _cinemaRepo.Save();
             RefreshPlannedScreenings();
 
-            string dateList = string.Join(", ", matches.Select(s => $"{s.Date:dd/MM} {s.StartTime:HH:mm} {s.Movie.Title}"));
+            string dateList = string.Join(", ", screeningMatches.Select(screening => $"{screening.Date:dd/MM} {screening.StartTime:HH:mm} {screening.Movie.Title}"));
             _dialogService.ShowInfo($"Følgende visninger blev slettet: {dateList}", "Slettet");
             ClearForm();
         }
@@ -229,44 +229,44 @@ namespace MoviesG5.UI
         private void RefreshPlannedScreenings()
         {
             PlannedScreenings.Clear();
-            foreach (var item in GetScreeningsByMonth())
+            foreach (var screening in GetScreeningsByMonth())
             {
-                PlannedScreenings.Add(item);
+                PlannedScreenings.Add(screening);
             }
         }
         private List<ScreeningListItem> GetScreeningsByMonth() {
             List<ScreeningListItem> monthList = new List<ScreeningListItem>();
             if (SelectedScreen == null) return monthList;
 
-            var plannedScreenings = from scr in SelectedScreen.Screenings
-                                    where (scr.Date.Month == MonthNumber &&
-                                    scr.Date.Year == Year)
+            var plannedScreenings = from screening in SelectedScreen.Screenings
+                                    where (screening.Date.Month == MonthNumber &&
+                                    screening.Date.Year == Year)
                                     select new
                                     {
-                                        day = scr.Date.Day,
-                                        startTime = scr.StartTime,
-                                        movie = scr.Movie
+                                        day = screening.Date.Day,
+                                        startTime = screening.StartTime,
+                                        movie = screening.Movie
                                     };
             int daysInMonth = DateTime.DaysInMonth(Year, MonthNumber);
-            for (int days = 1; days <= daysInMonth; days++)
+            for (int day = 1; day <= daysInMonth; day++)
             {
-                var screeningsOnDay = (from scr in plannedScreenings
-                                       where days == scr.day
-                                       orderby scr.startTime
-                                       select scr.startTime.ToString("HH:mm") + "-" +
-                                              scr.startTime.Add(scr.movie.Duration + TimeSpan.FromMinutes(30)).ToString("HH:mm") + " " + scr.movie.Title)
+                var screeningsOnDay = (from screening in plannedScreenings
+                                       where day == screening.day
+                                       orderby screening.startTime
+                                       select screening.startTime.ToString("HH:mm") + "-" +
+                                              screening.startTime.Add(screening.movie.Duration + TimeSpan.FromMinutes(30)).ToString("HH:mm") + " " + screening.movie.Title)
                                        .ToList();
 
-                var item = new ScreeningListItem
+                var dayItem = new ScreeningListItem
                 {
-                    DateText = days.ToString(),
+                    DateText = day.ToString(),
                     ScreeningText = screeningsOnDay
                 };
-                while (item.ScreeningText.Count < 3)
+                while (dayItem.ScreeningText.Count < 3)
                 {
-                    item.ScreeningText.Add("Ledig");
+                    dayItem.ScreeningText.Add("Ledig");
                 }
-                monthList.Add(item);
+                monthList.Add(dayItem);
             }
             return monthList;
         }
