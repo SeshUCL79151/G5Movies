@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="MoviesG5.UI.MovieView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoviesG5.UI"
+        mc:Ignorable="d"
+        d:DesignHeight="750" d:DesignWidth="1000">
+    <Grid Margin="10" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Registrerede film" FontSize="18"/>
+        <ListView Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" HorizontalAlignment="Center"  FontSize="13" Margin="0,25,0,0" ItemsSource="{Binding Movies}" SelectedItem="{Binding SelectedMovie}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="4,0"/>
+                    <Setter Property="Height" Value="22"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns >
+                        <GridViewColumn Header="Filmtitel" Width="200" DisplayMemberBinding="{Binding Title}"/>
+                        <GridViewColumn Header="Instruktør" Width="200" DisplayMemberBinding="{Binding Director}"/>
+                        <GridViewColumn Header="Varighed" Width="80" DisplayMemberBinding="{Binding Duration, StringFormat='{}{0:%h}:{0:mm}'}"/>
+                        <GridViewColumn Header="Genre" Width="120" DisplayMemberBinding="{Binding Genre}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Indtast filmdata" FontSize="18"/>
+
+
+        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast filmtitel" FontSize="13"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Width="200" Height="25" Margin="0,10,0,0" Name ="movieTitleTextBox" TextWrapping="Wrap" Text="{Binding MovieTitle}" FontSize="13" VerticalContentAlignment="Center"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast instruktør" FontSize="13"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Width="200" Height="25" Margin="0,10,0,0" Text="{Binding MovieDirector}" FontSize="13" VerticalContentAlignment="Center"/>
+        
+        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Indtast varighed (timer:minutter)" FontSize="13"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Width="38" Height="25" Margin="0,10,0,0" Text="{Binding DurationInput}" FontSize="13" VerticalContentAlignment="Center"/>
+
+        <TextBlock  Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Vælg genre" FontSize="13"/>
+        <ComboBox Grid.Row="4" Grid.Column="2" FontSize="13" VerticalContentAlignment="Center" Width="200" Height="25" Margin="0,10,0,0" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}"/>
+        
+        <Grid Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Gem film" Margin="0,0,5,0" Height="25" Command="{Binding AddMovieCommand}"/>
+            <Button Grid.Column="1" Content="Slet film" Margin="5,0,5,0" Height="25" Command="{Binding DeleteMovieCommand}"/>
+            <Button Grid.Column="2" Content="Ryd felter" Margin="5,0,0,0" Height="25" Command="{Binding ClearFormCommand}"/>
+        </Grid>
+
+
+    </Grid>
+</UserControl>

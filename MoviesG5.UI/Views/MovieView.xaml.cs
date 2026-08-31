@@ -11,10 +11,10 @@ using System.Windows.Shapes;
 
 namespace MoviesG5.UI
 {
-    public partial class MovieWindow : Window
+    public partial class MovieView : UserControl
     {
 
-        public MovieWindow()
+        public MovieView()
         {
             InitializeComponent();
             Loaded += (s, e) => movieTitleTextBox.Focus();

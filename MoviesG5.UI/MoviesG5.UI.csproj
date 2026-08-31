@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Images\cat.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MoviesG5.Core\MoviesG5.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Images\cat.jpg" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,15 @@ namespace MoviesG5.UI
         private readonly IDialogService _dialogService;
         public ObservableCollection<Movie> Movies { get; }
         public RelayCommand AddMovieCommand { get; }
+        public RelayCommand DeleteMovieCommand { get; }
         public RelayCommand ClearFormCommand { get; }
+
+        private Movie _selectedMovie;
+        public Movie SelectedMovie
+        {
+            get { return _selectedMovie; }
+            set { _selectedMovie = value; OnPropertyChanged(); }
+        }
 
         private string _movieTitle = string.Empty;
         public string MovieTitle
@@ -39,12 +47,13 @@ namespace MoviesG5.UI
             set { _selectedGenre = value; OnPropertyChanged(); }
         }
 
-        public MovieViewModel(IRepository<Movie> repo, IDialogService dialogService)
+        public MovieViewModel(IRepository<Movie> repo, ObservableCollection<Movie> movies, IDialogService dialogService)
         {
             _movieRepo = repo;
             _dialogService = dialogService;
-            Movies = new ObservableCollection<Movie>(Enumerable.Reverse(_movieRepo.GetAll())); // Vi vil gerne have vist den sidst tilføjede film først i listen og vender derfor repo om
+            Movies = movies;
             AddMovieCommand = new RelayCommand(execute => AddMovie(), canexecute => { return true; }); // Kommando til Gem-knap
+            DeleteMovieCommand = new RelayCommand(execute => DeleteMovie(), canexecute => { return true; }); // Kommando til Slet-knap
             ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Kommando til Ryd-knap
         }
         
@@ -93,7 +102,21 @@ namespace MoviesG5.UI
                 ClearForm();
             }
         }
-        private void ClearForm() 
+        private void DeleteMovie()
+        {
+            if (SelectedMovie == null)
+            {
+                _dialogService.ShowError("Du skal vælge en film i listen", "Fejl i indtastning");
+                return;
+            }
+
+            _movieRepo.Remove(SelectedMovie.Id);
+            _movieRepo.Save();
+            Movies.Remove(SelectedMovie);
+            _dialogService.ShowInfo("Filmen er slettet", "Succes");
+            SelectedMovie = null;
+        }
+        private void ClearForm()
         {
             MovieTitle = "";
             MovieDirector = "";
