@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MoviesG5.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="1000">
+             d:DesignHeight="700" d:DesignWidth="960">
     <Grid Background="White" >
-        <Image HorizontalAlignment="Left" Height="750" Margin="0,0,0,0" VerticalAlignment="Top" Width="1000" Source="/Views/Images/cat.jpg" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="700" Margin="0,0,0,0" VerticalAlignment="Top" Width="960" Source="/Views/Images/menupicture.png"/>
 
     </Grid>
 </UserControl>

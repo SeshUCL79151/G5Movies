@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Images\cat.jpg" />
+    <None Remove="Views\Images\MenuPicture.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\Images\cat.jpg" />
+    <Resource Include="Views\Images\MenuPicture.png" />
   </ItemGroup>
 
 </Project>

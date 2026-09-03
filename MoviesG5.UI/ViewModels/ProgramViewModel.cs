@@ -9,7 +9,6 @@ namespace MoviesG5.UI
 {
     public class ProgramViewModel : ViewModelBase
     {
-        private readonly IRepository<Movie> _movieRepo;
         private readonly IRepository<Cinema> _cinemaRepo;
         private readonly IDialogService _dialogService;
         public ObservableCollection<Movie> Movies { get; }
@@ -66,9 +65,8 @@ namespace MoviesG5.UI
             set { _startTimeInput = value; OnPropertyChanged(); }
         }
 
-        public ProgramViewModel(IRepository<Movie> movieRepo, IRepository<Cinema> cinemaRepo, ObservableCollection<Movie> movies, IDialogService dialogService)
+        public ProgramViewModel(IRepository<Cinema> cinemaRepo, ObservableCollection<Movie> movies, IDialogService dialogService)
         {
-            _movieRepo = movieRepo;
             _cinemaRepo = cinemaRepo;
             _dialogService = dialogService;
             Movies = movies;
@@ -92,7 +90,7 @@ namespace MoviesG5.UI
         {
             string movieError = SelectedMovie == null ? "Du skal vælge en film\n" : "";
             string screenError = SelectedScreen == null ? "Du skal vælge en biografsal\n" : "";
-            string dateError = (StartDate == null || EndDate == null) ? "Du skal vælge start- og slutdato\n" : "";
+            string dateError = (StartDate == null || EndDate == null || StartDate > EndDate) ? "Du skal vælge start- og slutdato, og startdato må ikke være efter slutdato\n" : "";
             bool isTimeValid = TimeOnly.TryParse(StartTimeInput, out TimeOnly startTime);
             string timeError = isTimeValid ? "" : "Du skal indtaste et gyldigt starttidspunkt (t:mm)\n";
 
@@ -141,7 +139,8 @@ namespace MoviesG5.UI
                 {
                     Date = DateOnly.FromDateTime(date),
                     StartTime = startTime,
-                    Movie = SelectedMovie
+                    Movie = SelectedMovie,
+                    Capacity = SelectedScreen.Capacity
                 });
             }
 
@@ -153,7 +152,7 @@ namespace MoviesG5.UI
         {
             string movieError = SelectedMovie == null ? "Du skal vælge en film\n" : "";
             string screenError = SelectedScreen == null ? "Du skal vælge en biografsal\n" : "";
-            string dateError = (StartDate == null || EndDate == null) ? "Du skal vælge start- og slutdato\n" : "";
+            string dateError = (StartDate == null || EndDate == null || StartDate > EndDate) ? "Du skal vælge start- og slutdato, og startdato må ikke være efter slutdato\n" : "";
             bool isTimeValid = TimeOnly.TryParse(StartTimeInput, out TimeOnly startTime);
             string timeError = isTimeValid ? "" : "Du skal indtaste et gyldigt starttidspunkt (t:mm)\n";
 

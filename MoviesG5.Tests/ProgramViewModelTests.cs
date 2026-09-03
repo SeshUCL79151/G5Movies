@@ -31,7 +31,7 @@ namespace MoviesG5.Tests
             _cinemaRepo.Add(_cinema);
 
             var movies = new ObservableCollection<Movie>(_movieRepo.GetAll());
-            _viewModel = new ProgramViewModel(_movieRepo, _cinemaRepo, movies, _dialogService);
+            _viewModel = new ProgramViewModel(_cinemaRepo, movies, _dialogService);
         }
 
         private static DateTime NextMonthFirstDay()
