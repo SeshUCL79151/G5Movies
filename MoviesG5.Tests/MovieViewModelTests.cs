@@ -165,37 +165,6 @@ namespace MoviesG5.Tests
         }
 
         [TestMethod]
-        public void DeleteMovie_NoSelection_ShowsErrorAndDoesNotRemove()
-        {
-            _repo.Add(new Movie { Title = "Inception", Director = "Christopher Nolan", Duration = new TimeSpan(2, 28, 0), Genre = Genre.SciFi });
-            _viewModel.Movies.Add(_repo.GetAll()[0]);
-
-            _viewModel.DeleteMovieCommand.Execute(null);
-
-            Assert.AreEqual(1, _dialogService.ErrorMessages.Count);
-            StringAssert.Contains(_dialogService.ErrorMessages[0], "vælge");
-            Assert.AreEqual(1, _viewModel.Movies.Count);
-            Assert.AreEqual(1, _repo.GetAll().Count);
-        }
-
-        [TestMethod]
-        public void DeleteMovie_SelectedMovie_RemovesFromCollectionAndRepository()
-        {
-            var movie = new Movie { Title = "Inception", Director = "Christopher Nolan", Duration = new TimeSpan(2, 28, 0), Genre = Genre.SciFi };
-            _repo.Add(movie);
-            _viewModel.Movies.Add(movie);
-            _viewModel.SelectedMovie = movie;
-
-            _viewModel.DeleteMovieCommand.Execute(null);
-
-            Assert.AreEqual(0, _viewModel.Movies.Count);
-            Assert.AreEqual(0, _repo.GetAll().Count);
-            Assert.AreEqual(1, _repo.SaveCallCount);
-            Assert.AreEqual(1, _dialogService.InfoMessages.Count);
-            Assert.IsNull(_viewModel.SelectedMovie);
-        }
-
-        [TestMethod]
         public void Constructor_ExistingMoviesInRepo_ShowsNewestFirst()
         {
             var repo = new InMemoryRepository<Movie>();

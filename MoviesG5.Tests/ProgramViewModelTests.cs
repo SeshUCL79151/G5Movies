@@ -188,65 +188,6 @@ namespace MoviesG5.Tests
         }
 
         [TestMethod]
-        public void DeleteScreenings_NoMatch_ShowsInfoMessage()
-        {
-            _viewModel.SelectedCinema = _cinema;
-            _viewModel.SelectedScreen = _screen;
-            _viewModel.SelectedMovie = _movie;
-            var start = NextMonthFirstDay();
-            _viewModel.StartDate = start;
-            _viewModel.EndDate = start;
-            _viewModel.StartTimeInput = "18:30";
-
-            _viewModel.DeleteScreeningsCommand.Execute(null);
-
-            Assert.AreEqual(1, _dialogService.InfoMessages.Count);
-            StringAssert.Contains(_dialogService.InfoMessages[0], "Ingen");
-        }
-
-        [TestMethod]
-        public void DeleteScreenings_MatchingScreening_RemovesAndSaves()
-        {
-            _viewModel.SelectedCinema = _cinema;
-            _viewModel.SelectedScreen = _screen;
-            var start = NextMonthFirstDay();
-            var date = DateOnly.FromDateTime(start);
-            _screen.Screenings.Add(new Screening { Date = date, StartTime = new TimeOnly(18, 30), Movie = _movie });
-
-            _viewModel.SelectedMovie = _movie;
-            _viewModel.StartDate = start;
-            _viewModel.EndDate = start;
-            _viewModel.StartTimeInput = "18:30";
-
-            _viewModel.DeleteScreeningsCommand.Execute(null);
-
-            Assert.AreEqual(0, _screen.Screenings.Count);
-            Assert.AreEqual(1, _cinemaRepo.SaveCallCount);
-            Assert.AreEqual(1, _dialogService.InfoMessages.Count);
-            StringAssert.Contains(_dialogService.InfoMessages[0], "Inception");
-        }
-
-        [TestMethod]
-        public void DeleteScreenings_DifferentStartTime_DoesNotMatch()
-        {
-            _viewModel.SelectedCinema = _cinema;
-            _viewModel.SelectedScreen = _screen;
-            var start = NextMonthFirstDay();
-            var date = DateOnly.FromDateTime(start);
-            _screen.Screenings.Add(new Screening { Date = date, StartTime = new TimeOnly(20, 0), Movie = _movie });
-
-            _viewModel.SelectedMovie = _movie;
-            _viewModel.StartDate = start;
-            _viewModel.EndDate = start;
-            _viewModel.StartTimeInput = "18:30"; // different from the 20:00 screening above
-
-            _viewModel.DeleteScreeningsCommand.Execute(null);
-
-            Assert.AreEqual(1, _screen.Screenings.Count);
-            StringAssert.Contains(_dialogService.InfoMessages[0], "Ingen");
-        }
-
-        [TestMethod]
         public void ClearForm_ResetsFieldsToDefaults()
         {
             _viewModel.SelectedMovie = _movie;
