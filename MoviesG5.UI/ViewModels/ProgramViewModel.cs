@@ -183,8 +183,9 @@ namespace MoviesG5.UI
         private void RefreshPlannedScreenings()
         {
             PlannedScreenings.Clear();
-            foreach (var screening in GetScreeningsByMonth())
+            foreach (var screening in GetScreeningsByMonth()) // Observable Collection PlannedScreenings er get only, så listen der er genereret i GetScreeningsByMonth() lægges ind i PlannedScreenings ét dayItem af gangen, da den ikke kan assignes direkte.
             {
+                {
                 PlannedScreenings.Add(screening);
             }
         }
