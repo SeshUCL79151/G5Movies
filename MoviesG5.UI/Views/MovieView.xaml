@@ -24,7 +24,7 @@
         
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap" Text="Registrerede film" FontSize="18"/>
-        <ListView Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" HorizontalAlignment="Center"  FontSize="13" Margin="0,25,0,0" ItemsSource="{Binding Movies}" SelectedItem="{Binding SelectedMovie}">
+        <ListView Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="6" HorizontalAlignment="Center"  FontSize="13" Margin="0,25,0,0" ItemsSource="{Binding Movies}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Padding" Value="4,0"/>
@@ -61,11 +61,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Gem film" Margin="0,0,5,0" Height="25" Command="{Binding AddMovieCommand}"/>
-            <Button Grid.Column="1" Content="Slet film" Margin="5,0,5,0" Height="25" Command="{Binding DeleteMovieCommand}"/>
-            <Button Grid.Column="2" Content="Ryd felter" Margin="5,0,0,0" Height="25" Command="{Binding ClearFormCommand}"/>
+            <Button Grid.Column="1" Content="Ryd felter" Margin="5,0,0,0" Height="25" Command="{Binding ClearFormCommand}"/>
         </Grid>
 
 

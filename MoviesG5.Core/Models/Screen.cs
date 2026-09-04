@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MoviesG5.Core
 {
-    public class Screen : IHasId
+    public class Screen
     {
         public int Id { get; set; }
         public int Name { get; set; }

@@ -25,7 +25,8 @@ namespace MoviesG5.UI
             var mainViewModel = new MainViewModel(
 
                 new MovieViewModel(movieRepo, movies, dialogService),
-                new ProgramViewModel(movieRepo, cinemaRepo, movies, dialogService));
+                new ProgramViewModel(cinemaRepo, movies, dialogService),
+                new ReservationViewModel(cinemaRepo, dialogService));
 
 
             var mainWindow = new MainWindow { DataContext = mainViewModel };

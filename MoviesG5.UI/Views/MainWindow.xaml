@@ -13,6 +13,8 @@
         <TabItem Header="Læg program" Height="40" Width="125" FontSize="16">
             <views:ProgramView DataContext="{Binding ProgramViewModel}" />
         </TabItem>
-        
+        <TabItem Header="Reservationer" Height="40" Width="125" FontSize="16">
+            <views:ReservationView DataContext="{Binding ReservationViewModel}" />
+        </TabItem>
     </TabControl>
 </Window>

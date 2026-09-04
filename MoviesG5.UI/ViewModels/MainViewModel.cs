@@ -8,11 +8,13 @@ namespace MoviesG5.UI
     {
         public MovieViewModel MovieViewModel { get; }
         public ProgramViewModel ProgramViewModel { get; }
+        public ReservationViewModel ReservationViewModel { get; }
 
-        public MainViewModel(MovieViewModel movieVm, ProgramViewModel programVm)
+        public MainViewModel(MovieViewModel movieVm, ProgramViewModel programVm, ReservationViewModel reservationVm)
         {
             MovieViewModel = movieVm;
             ProgramViewModel = programVm;
+            ReservationViewModel = reservationVm;
         }
     }
 }

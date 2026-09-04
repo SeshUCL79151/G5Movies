@@ -10,15 +10,7 @@ namespace MoviesG5.UI
         private readonly IDialogService _dialogService;
         public ObservableCollection<Movie> Movies { get; }
         public RelayCommand AddMovieCommand { get; }
-        public RelayCommand DeleteMovieCommand { get; }
         public RelayCommand ClearFormCommand { get; }
-
-        private Movie _selectedMovie;
-        public Movie SelectedMovie
-        {
-            get { return _selectedMovie; }
-            set { _selectedMovie = value; OnPropertyChanged(); }
-        }
 
         private string _movieTitle = string.Empty;
         public string MovieTitle
@@ -53,7 +45,6 @@ namespace MoviesG5.UI
             _dialogService = dialogService;
             Movies = movies;
             AddMovieCommand = new RelayCommand(execute => AddMovie(), canexecute => { return true; }); // Kommando til Gem-knap
-            DeleteMovieCommand = new RelayCommand(execute => DeleteMovie(), canexecute => { return true; }); // Kommando til Slet-knap
             ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Kommando til Ryd-knap
         }
         
@@ -101,20 +92,6 @@ namespace MoviesG5.UI
                 _dialogService.ShowInfo("Filmen er gemt", "Succes");
                 ClearForm();
             }
-        }
-        private void DeleteMovie()
-        {
-            if (SelectedMovie == null)
-            {
-                _dialogService.ShowError("Du skal vælge en film i listen", "Fejl i indtastning");
-                return;
-            }
-
-            _movieRepo.Remove(SelectedMovie.Id);
-            _movieRepo.Save();
-            Movies.Remove(SelectedMovie);
-            _dialogService.ShowInfo("Filmen er slettet", "Succes");
-            SelectedMovie = null;
         }
         private void ClearForm()
         {

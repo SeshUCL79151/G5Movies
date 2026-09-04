@@ -1,0 +1,521 @@
+[
+  {
+    "Id": 1,
+    "Name": "Hjerm biograf",
+    "Screens": [
+      {
+        "Id": 1,
+        "Name": 1,
+        "Capacity": 50,
+        "Screenings": [
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-01",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-02",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-03",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-04",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-05",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-06",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-07",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-08",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-09",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-10",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-11",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-12",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-13",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-14",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "19:00:00",
+            "Date": "2026-10-15",
+            "Movie": {
+              "Id": 1,
+              "Title": "Alien",
+              "Director": "Ridley Scott",
+              "Duration": "01:46:00",
+              "Genre": 1
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "19.00-21.16 Alien (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-01",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-02",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-03",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-04",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-05",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-06",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-07",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [
+              {
+                "TicketCount": 3,
+                "Customer": {
+                  "Email": "h@1.dk",
+                  "Phone": "12345678"
+                }
+              }
+            ],
+            "ReservedSeats": 3,
+            "DisplayText": "16.00-18.04 Ternet Ninja (3/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-08",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-09",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-10",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-11",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-12",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-13",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-14",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          },
+          {
+            "StartTime": "16:00:00",
+            "Date": "2026-10-15",
+            "Movie": {
+              "Id": 2,
+              "Title": "Ternet Ninja",
+              "Director": "Anders Matthesen",
+              "Duration": "01:34:00",
+              "Genre": 2
+            },
+            "Capacity": 50,
+            "Bookings": [],
+            "ReservedSeats": 0,
+            "DisplayText": "16.00-18.04 Ternet Ninja (0/50)"
+          }
+        ]
+      },
+      {
+        "Id": 2,
+        "Name": 2,
+        "Capacity": 25,
+        "Screenings": []
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "Name": "Videb\u00E6k biograf",
+    "Screens": [
+      {
+        "Id": 1,
+        "Name": 1,
+        "Capacity": 70,
+        "Screenings": []
+      },
+      {
+        "Id": 2,
+        "Name": 2,
+        "Capacity": 25,
+        "Screenings": []
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Thorsminde biograf",
+    "Screens": [
+      {
+        "Id": 1,
+        "Name": 1,
+        "Capacity": 50,
+        "Screenings": []
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "R\u00E6hr biograf",
+    "Screens": [
+      {
+        "Id": 1,
+        "Name": 1,
+        "Capacity": 75,
+        "Screenings": []
+      }
+    ]
+  }
+]
