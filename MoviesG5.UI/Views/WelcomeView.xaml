@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="960">
     <Grid Background="White" >
-        <Image HorizontalAlignment="Left" Height="700" Margin="0,0,0,0" VerticalAlignment="Top" Width="960" Source="/Views/Images/menupicture.png"/>
+        <Image HorizontalAlignment="Center" Height="650" VerticalAlignment="Center" Width="900" Source="/Views/Images/TheMoviesStart.jpg"/>
 
     </Grid>
 </UserControl>

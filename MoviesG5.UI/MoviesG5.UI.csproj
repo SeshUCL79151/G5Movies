@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Images\MenuPicture.png" />
+    <None Remove="Views\Images\cat.jpg" />
+    <None Remove="Views\Images\TheMoviesStart.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\Images\MenuPicture.png" />
+    <Resource Include="Views\Images\cat.jpg" />
+    <Resource Include="Views\Images\TheMoviesStart.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
