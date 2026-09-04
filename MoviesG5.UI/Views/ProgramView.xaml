@@ -140,11 +140,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="Gem" Margin="0,0,5,0" Height="30" Command="{Binding AddScreeningsCommand}"/>
-                <Button Grid.Column="1" Content="Slet" Margin="5,0,5,0" Height="30" Command="{Binding DeleteScreeningsCommand}"/>
-                <Button Grid.Column="2" Content="Ryd" Margin="5,0,0,0" Height="30" Command="{Binding ClearFormCommand}"/>
+                <Button Grid.Column="1" Content="Ryd" Margin="5,0,0,0" Height="30" Command="{Binding ClearFormCommand}"/>
             </Grid>
         </StackPanel>
     </Grid>

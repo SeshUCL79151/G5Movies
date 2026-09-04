@@ -30,9 +30,13 @@
                       ItemsSource="{Binding Cinemas}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCinema}"/>
         </StackPanel>
 
-        <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0,0,10,10"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"
-                   Text="Vælg en forevisning på oversigten" FontSize="25"/>
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="0,0,10,10"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center"
+                       Text="Vælg en forevisning på oversigten:" FontSize="16" FontWeight="Bold"/>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Margin="0,10,0,0"
+                       Text="{Binding SelectedScreeningText}" FontSize="16" />
+        </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,10,10">
             <TextBlock HorizontalAlignment="Center" Text="Email" FontSize="13"/>
@@ -80,7 +84,7 @@
 
         <!-- Screenings list -->
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,10,0,0">
-            <ListView FontSize="13" ItemsSource="{Binding PlannedScreenings}" SelectedItem="{Binding SelectedScreening}"
+            <ListView FontSize="13" ItemsSource="{Binding PlannedScreenings}"
               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.Style>
                     <Style TargetType="ListView">
@@ -94,14 +98,42 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Padding" Value="4,0"/>
-                        <Setter Property="Height" Value="21"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
-                            <GridViewColumn Header="Dato" Width="80" DisplayMemberBinding="{Binding Date, StringFormat=dd/MM/yyyy}"/>
-                            <GridViewColumn Header="Forestilling" Width="400" DisplayMemberBinding="{Binding DisplayText}"/>
+                            <GridViewColumn Header="Dato" Width="50" DisplayMemberBinding="{Binding DateText}"/>
+                            <GridViewColumn Header="Forestilling 1" Width="280">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Slot1.DisplayText}" IsEnabled="{Binding Slot1.HasScreening}"
+                                                Command="{Binding DataContext.ScreeningButtonClickCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding Slot1.Screening}"
+                                                HorizontalContentAlignment="Left" Padding="4,2"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Forestilling 2" Width="280">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Slot2.DisplayText}" IsEnabled="{Binding Slot2.HasScreening}"
+                                                Command="{Binding DataContext.ScreeningButtonClickCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding Slot2.Screening}"
+                                                HorizontalContentAlignment="Left" Padding="4,2"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Forestilling 3" Width="280">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Slot3.DisplayText}" IsEnabled="{Binding Slot3.HasScreening}"
+                                                Command="{Binding DataContext.ScreeningButtonClickCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding Slot3.Screening}"
+                                                HorizontalContentAlignment="Left" Padding="4,2"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>

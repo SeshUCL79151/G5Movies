@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 1,
+    "Title": "Alien",
+    "Director": "Ridley Scott",
+    "Duration": "01:46:00",
+    "Genre": 1
+  },
+  {
+    "Id": 2,
+    "Title": "Ternet Ninja",
+    "Director": "Anders Matthesen",
+    "Duration": "01:34:00",
+    "Genre": 2
+  }
+]

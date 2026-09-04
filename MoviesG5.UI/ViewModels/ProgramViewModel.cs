@@ -1,9 +1,6 @@
-using Microsoft.VisualBasic;
 using MoviesG5.Core;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Net.NetworkInformation;
-using System.Windows.Input;
 
 namespace MoviesG5.UI
 {
@@ -13,10 +10,9 @@ namespace MoviesG5.UI
         private readonly IDialogService _dialogService;
         public ObservableCollection<Movie> Movies { get; }
         public ObservableCollection<Cinema> Cinemas { get; }
-        public ObservableCollection<ScreeningListItem> PlannedScreenings { get; }
+        public ObservableCollection<ProgramListDayItem> PlannedScreenings { get; }
 
         public RelayCommand AddScreeningsCommand { get; }
-        public RelayCommand DeleteScreeningsCommand { get; }
         public RelayCommand ClearFormCommand { get; }
         public RelayCommand PreviousMonthCommand { get; }
         public RelayCommand NextMonthCommand { get; }
@@ -71,7 +67,7 @@ namespace MoviesG5.UI
             _dialogService = dialogService;
             Movies = movies;
             Cinemas = new ObservableCollection<Cinema>(_cinemaRepo.GetAll());
-            PlannedScreenings = new ObservableCollection<ScreeningListItem>();
+            PlannedScreenings = new ObservableCollection<ProgramListDayItem>();
             DateTime date = DateTime.Now;
             MonthNumber = DateOnly.FromDateTime(date).Month + 1;// Nummer på næste måned
             Year = date.Year;
@@ -80,7 +76,6 @@ namespace MoviesG5.UI
             StartDate = new DateTime(Year, MonthNumber, 1);
             EndDate = StartDate;
             AddScreeningsCommand = new RelayCommand(execute => AddScreenings(), canexecute => { return true; }); // Kommando til Gem-knap
-            DeleteScreeningsCommand = new RelayCommand(execute => DeleteScreenings(), canexecute => { return true; }); // Kommando til Slet-knap
             ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Kommando til Ryd-knap
             PreviousMonthCommand = new RelayCommand(execute => PreviousMonth(), canexecute => { return true; });
             NextMonthCommand = new RelayCommand(execute => NextMonth(), canexecute => { return true; });
@@ -148,46 +143,6 @@ namespace MoviesG5.UI
             RefreshPlannedScreenings();
             ClearForm();
         }
-        private void DeleteScreenings()
-        {
-            string movieError = SelectedMovie == null ? "Du skal vælge en film\n" : "";
-            string screenError = SelectedScreen == null ? "Du skal vælge en biografsal\n" : "";
-            string dateError = (StartDate == null || EndDate == null || StartDate > EndDate) ? "Du skal vælge start- og slutdato, og startdato må ikke være efter slutdato\n" : "";
-            bool isTimeValid = TimeOnly.TryParse(StartTimeInput, out TimeOnly startTime);
-            string timeError = isTimeValid ? "" : "Du skal indtaste et gyldigt starttidspunkt (t:mm)\n";
-
-            if (movieError != "" || screenError != "" || dateError != "" || timeError != "")
-            {
-                _dialogService.ShowError(movieError + screenError + dateError + timeError, "Fejl i indtastning");
-                return;
-            }
-
-            DateOnly startDate = DateOnly.FromDateTime(StartDate.Value);
-            DateOnly endDate = DateOnly.FromDateTime(EndDate.Value);
-
-            var screeningMatches = SelectedScreen.Screenings.Where(screening =>
-                screening.Movie.Id == SelectedMovie.Id &&
-                screening.StartTime == startTime &&
-                screening.Date >= startDate && screening.Date <= endDate).ToList();
-
-            if (!screeningMatches.Any())
-            {
-                _dialogService.ShowInfo("Ingen visninger matchede søgningen", "Ingen match");
-                return;
-            }
-
-            foreach (var screening in screeningMatches)
-            {
-                SelectedScreen.Screenings.Remove(screening);
-            }
-
-            _cinemaRepo.Save();
-            RefreshPlannedScreenings();
-
-            string dateList = string.Join(", ", screeningMatches.Select(screening => $"{screening.Date:dd/MM} {screening.StartTime:HH:mm} {screening.Movie.Title}"));
-            _dialogService.ShowInfo($"Følgende visninger blev slettet: {dateList}", "Slettet");
-            ClearForm();
-        }
         private void ClearForm()
         {
             SelectedMovie = null;
@@ -233,8 +188,8 @@ namespace MoviesG5.UI
                 PlannedScreenings.Add(screening);
             }
         }
-        private List<ScreeningListItem> GetScreeningsByMonth() {
-            List<ScreeningListItem> monthList = new List<ScreeningListItem>();
+        private List<ProgramListDayItem> GetScreeningsByMonth() {
+            List<ProgramListDayItem> monthList = new List<ProgramListDayItem>();
             if (SelectedScreen == null) return monthList;
 
             var plannedScreenings = from screening in SelectedScreen.Screenings
@@ -254,9 +209,9 @@ namespace MoviesG5.UI
                                        orderby screening.startTime
                                        select screening.startTime.ToString("HH:mm") + "-" +
                                               screening.startTime.Add(screening.movie.Duration + TimeSpan.FromMinutes(30)).ToString("HH:mm") + " " + screening.movie.Title)
-                                       .ToList();
+                                              .ToList();
 
-                var dayItem = new ScreeningListItem
+                var dayItem = new ProgramListDayItem
                 {
                     DateText = day.ToString(),
                     ScreeningText = screeningsOnDay

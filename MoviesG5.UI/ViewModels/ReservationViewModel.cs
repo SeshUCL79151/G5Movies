@@ -10,12 +10,13 @@ namespace MoviesG5.UI
         private readonly IDialogService _dialogService;
 
         public ObservableCollection<Cinema> Cinemas { get; }
-        public ObservableCollection<Screening> PlannedScreenings { get; }
+        public ObservableCollection<ReservationListDayItem> PlannedScreenings { get; }
 
         public RelayCommand ReserveCommand { get; }
         public RelayCommand ClearFormCommand { get; }
         public RelayCommand PreviousMonthCommand { get; }
         public RelayCommand NextMonthCommand { get; }
+        public RelayCommand ScreeningButtonClickCommand { get; }
 
         private Cinema _selectedCinema;
         private Screen _selectedScreen;
@@ -24,6 +25,7 @@ namespace MoviesG5.UI
         private string _customerPhone;
         private string _ticketCount;
         private string _monthName;
+        private string _selectedScreeningText;
 
         private int MonthNumber { get; set; }
         private int Year { get; set; }
@@ -49,6 +51,11 @@ namespace MoviesG5.UI
             get { return _selectedScreening; }
             set { _selectedScreening = value; OnPropertyChanged(); }
         }
+        public string SelectedScreeningText
+        {
+            get { return _selectedScreeningText; }
+            set { _selectedScreeningText = value; OnPropertyChanged(); }
+        }
         public string CustomerEmail
         {
             get { return _customerEmail; }
@@ -71,7 +78,7 @@ namespace MoviesG5.UI
             _dialogService = dialogService;
 
             Cinemas = new ObservableCollection<Cinema>(_cinemaRepo.GetAll());
-            PlannedScreenings = new ObservableCollection<Screening>();
+            PlannedScreenings = new ObservableCollection<ReservationListDayItem>();
 
             DateTime date = DateTime.Now;
             MonthNumber = DateOnly.FromDateTime(date).Month + 1; // Nummer på næste måned
@@ -83,6 +90,14 @@ namespace MoviesG5.UI
             ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; });
             PreviousMonthCommand = new RelayCommand(execute => PreviousMonth(), canexecute => { return true; });
             NextMonthCommand = new RelayCommand(execute => NextMonth(), canexecute => { return true; });
+            ScreeningButtonClickCommand = new RelayCommand(parameter => SelectScreening(parameter as Screening));
+        }
+
+        private void SelectScreening(Screening? screening)
+        {
+            if (screening == null) return;
+            SelectedScreening = screening;
+            SelectedScreeningText = $"{screening.Date:dd/MM/yyyy} {screening.DisplayText}";
         }
 
         private void ReserveBooking()
@@ -121,6 +136,7 @@ namespace MoviesG5.UI
         private void ClearForm()
         {
             SelectedScreening = null;
+            SelectedScreeningText = "";
             CustomerEmail = "";
             CustomerPhone = "";
             TicketCount = "";
@@ -159,17 +175,37 @@ namespace MoviesG5.UI
         private void RefreshPlannedScreenings()
         {
             PlannedScreenings.Clear();
-            if (SelectedScreen == null) return;
+            foreach (var screening in GetScreeningsByMonth())
+            {
+                PlannedScreenings.Add(screening);
+            }
+        }
+        private List<ReservationListDayItem> GetScreeningsByMonth()
+        {
+            List<ReservationListDayItem> monthList = new List<ReservationListDayItem>();
+            if (SelectedScreen == null) return monthList;
 
             var screeningsThisMonth = SelectedScreen.Screenings
                 .Where(screening => screening.Date.Month == MonthNumber && screening.Date.Year == Year)
                 .OrderBy(screening => screening.Date)
                 .ThenBy(screening => screening.StartTime);
 
-            foreach (var screening in screeningsThisMonth)
+            int daysInMonth = DateTime.DaysInMonth(Year, MonthNumber);
+            for (int day = 1; day <= daysInMonth; day++)
             {
-                PlannedScreenings.Add(screening);
+                var screeningsOnDay = screeningsThisMonth
+                    .Where(screening => screening.Date.Day == day)
+                    .Take(3)
+                    .ToList();
+
+                var dayItem = new ReservationListDayItem { DateText = day.ToString() };
+                if (screeningsOnDay.Count > 0) dayItem.Slot1.Screening = screeningsOnDay[0];
+                if (screeningsOnDay.Count > 1) dayItem.Slot2.Screening = screeningsOnDay[1];
+                if (screeningsOnDay.Count > 2) dayItem.Slot3.Screening = screeningsOnDay[2];
+
+                monthList.Add(dayItem);
             }
+            return monthList;
         }
     }
 }
