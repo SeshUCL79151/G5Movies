@@ -21,11 +21,11 @@ namespace MoviesG5.UI
         private Cinema _selectedCinema;
         private Screen _selectedScreen;
         private Screening? _selectedScreening;
+        private string _selectedScreeningText;
         private string _customerEmail;
         private string _customerPhone;
         private string _ticketCount;
         private string _monthName;
-        private string _selectedScreeningText;
 
         private int MonthNumber { get; set; }
         private int Year { get; set; }
@@ -175,7 +175,7 @@ namespace MoviesG5.UI
         private void RefreshPlannedScreenings()
         {
             PlannedScreenings.Clear();
-            foreach (var dayItem in GetScreeningsByMonth())
+            foreach (var dayItem in GetScreeningsByMonth()) // Observable Collection PlannedScreenings er get only, så listen der er genereret i GetScreeningsByMonth() lægges ind i PlannedScreenings én dayItem af gangen, da den ikke kan assignes direkte.
             {
                 PlannedScreenings.Add(dayItem);
             }
@@ -195,7 +195,7 @@ namespace MoviesG5.UI
             {
                 var screeningsOnDay = screeningsThisMonth
                     .Where(screening => screening.Date.Day == day)
-                    .Take(3)
+                    .Take(3) // ProgramViewModel tillader max. 3 screenings pr. dag, så dette er bare ekstra sikkerhed for at der max er 3 screenings i sreeningsOnDay
                     .ToList();
 
                 var dayItem = new ReservationListDayItem { DateText = day.ToString() };

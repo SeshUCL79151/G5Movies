@@ -18,7 +18,7 @@ namespace MoviesG5.UI
             var cinemaRepo = new RepositoryJson<Cinema>("cinemas.json");
             SeedCinemas(cinemaRepo);
 
-            var movies = new ObservableCollection<Movie>(Enumerable.Reverse(movieRepo.GetAll()));
+            var movies = new ObservableCollection<Movie>(Enumerable.Reverse(movieRepo.GetAll())); // Oprettes her, da den bruges i både Movie- og ProgramViewModel
 
             var dialogService = new MessageBoxDialogService();
 

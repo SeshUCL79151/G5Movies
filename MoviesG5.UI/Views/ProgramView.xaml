@@ -8,26 +8,20 @@
     <Grid Margin="10" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <!-- "Vælg en film fra oversigten" -->
             <RowDefinition Height="210"/>
-            <!-- Movie list -->
             <RowDefinition Height="25"/>
-            <!-- Month navigation -->
             <RowDefinition Height="*"/>
-            <!-- Screenings list -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <!-- Main content -->
             <ColumnDefinition Width="Auto"/>
-            <!-- Sidebar -->
         </Grid.ColumnDefinitions>
 
-        <!-- Header text -->
+        
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Vælg en film fra listen"
                HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"/>
 
-        <!-- Movie list -->
+        
         <ListView Grid.Column="0" ItemsSource="{Binding Movies}"
           Width="590" Height="200" Margin="0,0,10,10" FontSize="13" Grid.Row="1"
           SelectedItem="{Binding SelectedMovie}">
@@ -49,7 +43,7 @@
             </ListView.View>
         </ListView>
 
-        <!-- Month navigation -->
+        
         <Grid Grid.Row="2" Grid.Column="0" Margin="0,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -62,7 +56,7 @@
             <Button Grid.Column="2" Content="➡" Command="{Binding NextMonthCommand}"/>
         </Grid>
 
-        <!-- Screenings list -->
+        
         <Grid Grid.Row="3" Grid.Column="0" Margin="0,10,10,0">
             <ListView FontSize="13" ItemsSource="{Binding PlannedScreenings}"
               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -108,7 +102,7 @@
             </TextBlock>
         </Grid>
 
-        <!-- Sidebar: -->
+        
         <StackPanel Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Width="220">
             <TextBlock  Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Vælg biograf" FontSize="13"/>
             <ComboBox Grid.Row="5" Grid.Column="2" FontSize="13" VerticalContentAlignment="Center" Width="200" Height="25" Margin="0,10,0,0" ItemsSource="{Binding Cinemas}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCinema}"/>

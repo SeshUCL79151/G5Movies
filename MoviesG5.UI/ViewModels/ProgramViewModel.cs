@@ -75,10 +75,10 @@ namespace MoviesG5.UI
             SetMonthName(MonthNumber); // Programmet starter med næste måned valgt
             StartDate = new DateTime(Year, MonthNumber, 1);
             EndDate = StartDate;
-            AddScreeningsCommand = new RelayCommand(execute => AddScreenings(), canexecute => { return true; }); // Kommando til Gem-knap
-            ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Kommando til Ryd-knap
-            PreviousMonthCommand = new RelayCommand(execute => PreviousMonth(), canexecute => { return true; });
-            NextMonthCommand = new RelayCommand(execute => NextMonth(), canexecute => { return true; });
+            AddScreeningsCommand = new RelayCommand(execute => AddScreenings(), canexecute => { return true; }); // Gem-knap
+            ClearFormCommand = new RelayCommand(execute => ClearForm(), canexecute => { return true; }); // Ryd-knap
+            PreviousMonthCommand = new RelayCommand(execute => PreviousMonth(), canexecute => { return true; }); // Forrige måned
+            NextMonthCommand = new RelayCommand(execute => NextMonth(), canexecute => { return true; }); // Næste måned
         }
         
         private void AddScreenings()
