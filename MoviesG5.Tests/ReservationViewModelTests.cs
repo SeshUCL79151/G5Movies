@@ -195,6 +195,52 @@ namespace MoviesG5.Tests
         }
 
         [TestMethod]
+        [DataRow("not-an-email")]
+        [DataRow("test@test")]
+        [DataRow("@test.dk")]
+        [DataRow("test.dk")]
+        public void ReserveBooking_InvalidEmail_ShowsErrorAndDoesNotAdd(string email)
+        {
+            var start = NextMonthFirstDay();
+            var date = DateOnly.FromDateTime(start);
+            var screening = AddScreening(date, new TimeOnly(18, 30));
+            _viewModel.SelectedCinema = _cinema;
+            _viewModel.SelectedScreen = _screen;
+            _viewModel.ScreeningButtonClickCommand.Execute(screening);
+            _viewModel.CustomerEmail = email;
+            _viewModel.CustomerPhone = "12345678";
+            _viewModel.TicketCount = "2";
+
+            _viewModel.ReserveCommand.Execute(null);
+
+            Assert.AreEqual(0, screening.Bookings.Count);
+            StringAssert.Contains(_dialogService.ErrorMessages[0], "email");
+        }
+
+        [TestMethod]
+        [DataRow("1234")]
+        [DataRow("123456789")]
+        [DataRow("1234567a")]
+        [DataRow("")]
+        public void ReserveBooking_InvalidPhone_ShowsErrorAndDoesNotAdd(string phone)
+        {
+            var start = NextMonthFirstDay();
+            var date = DateOnly.FromDateTime(start);
+            var screening = AddScreening(date, new TimeOnly(18, 30));
+            _viewModel.SelectedCinema = _cinema;
+            _viewModel.SelectedScreen = _screen;
+            _viewModel.ScreeningButtonClickCommand.Execute(screening);
+            _viewModel.CustomerEmail = "test@test.dk";
+            _viewModel.CustomerPhone = phone;
+            _viewModel.TicketCount = "2";
+
+            _viewModel.ReserveCommand.Execute(null);
+
+            Assert.AreEqual(0, screening.Bookings.Count);
+            StringAssert.Contains(_dialogService.ErrorMessages[0], "telefonnummer");
+        }
+
+        [TestMethod]
         public void ReserveBooking_TicketCountExceedsCapacity_ShowsErrorAndDoesNotAdd()
         {
             var start = NextMonthFirstDay();

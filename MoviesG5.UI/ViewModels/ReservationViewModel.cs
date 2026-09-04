@@ -1,6 +1,7 @@
 using MoviesG5.Core;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace MoviesG5.UI
 {
@@ -103,8 +104,10 @@ namespace MoviesG5.UI
         private void ReserveBooking()
         {
             string screeningError = SelectedScreening == null ? "Du skal vælge en forestilling\n" : "";
-            string emailError = string.IsNullOrWhiteSpace(CustomerEmail) ? "Du skal indtaste en email\n" : "";
-            string phoneError = string.IsNullOrWhiteSpace(CustomerPhone) ? "Du skal indtaste et telefonnummer\n" : "";
+            bool isEmailValid = Regex.IsMatch(CustomerEmail ?? "", @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            string emailError = isEmailValid ? "" : "Du skal indtaste en gyldig emailadresse\n";
+            bool isPhoneValid = Regex.IsMatch(CustomerPhone ?? "", @"^\d{8}$");
+            string phoneError = isPhoneValid ? "" : "Du skal indtaste et gyldigt telefonnummer (8 cifre)\n";
             bool isTicketCountValid = int.TryParse(TicketCount, out int ticketCount) && ticketCount > 0;
             string ticketCountError = isTicketCountValid ? "" : "Du skal indtaste et gyldigt antal billetter\n";
 
