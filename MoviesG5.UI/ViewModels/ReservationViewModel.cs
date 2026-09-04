@@ -175,9 +175,9 @@ namespace MoviesG5.UI
         private void RefreshPlannedScreenings()
         {
             PlannedScreenings.Clear();
-            foreach (var screening in GetScreeningsByMonth())
+            foreach (var dayItem in GetScreeningsByMonth())
             {
-                PlannedScreenings.Add(screening);
+                PlannedScreenings.Add(dayItem);
             }
         }
         private List<ReservationListDayItem> GetScreeningsByMonth()
