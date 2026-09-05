@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="MoviesG5.Core/MoviesG5.Core.csproj" Id="7b7706e5-0c4d-4421-a559-ff7a1de61a47" />
-  <Project Path="MoviesG5.UI/MoviesG5.UI.csproj" />
+  <Project DefaultStartup="true" Path="MoviesG5.UI/MoviesG5.UI.csproj" />
   <Project Path="MoviesG5.Tests/MoviesG5.Tests.csproj" />
 </Solution>
